@@ -2,14 +2,10 @@
 // http://localhost:3000/isolated/exercise/01.js
 
 import * as React from 'react'
-const Globe = React.lazy(() => import('../globe'))
+const Globe = React.lazy(() => import(/* webpackPrefetch: true */ '../globe'))
 
 function App() {
   const [showGlobe, setShowGlobe] = React.useState(false)
-
-  const loadGlobe = () => {
-    return import('../globe')
-  }
 
   return (
     <div
@@ -22,7 +18,8 @@ function App() {
         padding: '2rem',
       }}
     >
-      <label style={{marginBottom: '1rem'}} onMouseOver={loadGlobe}>
+      {/* <label style={{marginBottom: '1rem'}} onMouseOver={loadGlobe}> */}
+      <label style={{marginBottom: '1rem'}}>
         <input
           type="checkbox"
           checked={showGlobe}
