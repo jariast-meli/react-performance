@@ -65,12 +65,11 @@ function App() {
   // const items = allItems.slice(0, 100)
 
   // Extra 02
-  const {
-    data: allItems,
-    error,
-    status,
-    run,
-  } = useAsync({status: 'idle', data: [], error: null})
+  const {data: allItems, run} = useAsync({
+    status: 'idle',
+    data: [],
+    error: null,
+  })
 
   const items = allItems.slice(0, 100)
 
