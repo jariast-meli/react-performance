@@ -21,8 +21,8 @@ function Menu({
           getItemProps={getItemProps}
           item={item}
           index={index}
-          selectedItem={selectedItem}
-          highlightedIndex={highlightedIndex}
+          isSelected={selectedItem?.id === item.id}
+          isHighlighted={highlightedIndex === index}
         >
           {item.name}
         </ListItem>
@@ -34,16 +34,52 @@ function Menu({
 Menu = React.memo(Menu)
 // 🐨 Memoize the Menu here using React.memo
 
+// Extra 01 changes ************
+// function ListItem({
+//   getItemProps,
+//   item,
+//   index,
+//   selectedItem,
+//   highlightedIndex,
+//   ...props
+// }) {
+//   const isSelected = selectedItem?.id === item.id
+//   const isHighlighted = highlightedIndex === index
+//   return (
+//     <li
+//       {...getItemProps({
+//         index,
+//         item,
+//         style: {
+//           fontWeight: isSelected ? 'bold' : 'normal',
+//           backgroundColor: isHighlighted ? 'lightgray' : 'inherit',
+//         },
+//         ...props,
+//       })}
+//     />
+//   )
+// }
+
+// ListItem = React.memo(ListItem, (oldProps, newProps) => {
+//   // Kent did this a bit different, but I think at the end of
+//   // the day is not a huge improvement performance-wise
+//
+//   return (
+//     oldProps.index === newProps.index &&
+//     oldProps.selectedItem === newProps.selectedItem &&
+//     oldProps.highlightedIndex !== oldProps.index &&
+//     newProps.highlightedIndex !== newProps.index
+//   )
+// })
+
 function ListItem({
   getItemProps,
   item,
   index,
-  selectedItem,
-  highlightedIndex,
+  isSelected,
+  isHighlighted,
   ...props
 }) {
-  const isSelected = selectedItem?.id === item.id
-  const isHighlighted = highlightedIndex === index
   return (
     <li
       {...getItemProps({
@@ -59,14 +95,7 @@ function ListItem({
   )
 }
 
-ListItem = React.memo(ListItem, (oldProps, newProps) => {
-  return (
-    oldProps.index === newProps.index &&
-    oldProps.selectedItem === newProps.selectedItem &&
-    oldProps.highlightedIndex !== oldProps.index &&
-    newProps.highlightedIndex !== newProps.index
-  )
-})
+ListItem = React.memo(ListItem)
 // 🐨 Memoize the ListItem here using React.memo
 
 function App() {
