@@ -59,7 +59,14 @@ function ListItem({
   )
 }
 
-ListItem = React.memo(ListItem)
+ListItem = React.memo(ListItem, (oldProps, newProps) => {
+  return (
+    oldProps.index === newProps.index &&
+    oldProps.selectedItem === newProps.selectedItem &&
+    oldProps.highlightedIndex !== oldProps.index &&
+    newProps.highlightedIndex !== newProps.index
+  )
+})
 // 🐨 Memoize the ListItem here using React.memo
 
 function App() {
